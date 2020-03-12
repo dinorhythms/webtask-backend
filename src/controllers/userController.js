@@ -79,6 +79,23 @@ const updateUser = async (req, res) => {
   }
 };
 
+const getAll = async (req, res) => {
+  try {
+    const users = await User.find();
+
+    return res.status(201).json({
+      status: 'success',
+      message: 'get user successfully',
+      data: users
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: 'error',
+      error: error.message
+    });
+  }
+};
+
 export default {
-  createUser, updateUser
+  createUser, updateUser, getAll
 };
