@@ -1,7 +1,10 @@
+/* eslint-disable no-console */
 import express from 'express';
 import trimmer from 'trim-request-body';
 import cors from 'cors';
+import mongoose from 'mongoose';
 import routes from './routes';
+import './config/env';
 
 const app = express();
 const router = express.Router();
@@ -30,8 +33,16 @@ app.use('*', (req, res) => res.status(404).json({
   message: 'not found'
 }));
 
+// db connection
+mongoose.connect(process.env.DB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+
+const db = mongoose.connection;
+db.on('error', () => { console.log('failed to connect to mongoose'); });
+db.once('open', () => {
+  console.log('Connected to mongoose');
+});
+
 app.listen(4000, () => {
-  // eslint-disable-next-line no-console
   console.log('listening on 4000');
 });
 
