@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
-  phoneNo: { type: Number, required: true, unique: false },
+  phoneNo: { type: String, required: true, unique: false },
   firstName: { type: String, required: true, unique: false },
   lastName: { type: String, required: true, unique: false },
   age: { type: Number, required: true, unique: false },
