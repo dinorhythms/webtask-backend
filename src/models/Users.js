@@ -3,12 +3,17 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
-  phone_no: { type: Number, required: true, unique: true },
-  first_name: { type: String, required: true, unique: false },
-  last_name: { type: String, required: true, unique: false },
+  phoneNo: { type: Number, required: true, unique: false },
+  firstName: { type: String, required: true, unique: false },
+  lastName: { type: String, required: true, unique: false },
+  age: { type: Number, required: true, unique: false },
   address: { type: String, required: true, unique: false },
-  created_on: { type: Date, required: false, unique: false },
-  updated_on: { type: Date, required: false, unique: false },
+  createdOn: {
+    type: Date, required: true, unique: false, default: Date.now
+  },
+  updatedOn: {
+    type: Date, required: true, unique: false, default: Date.now
+  },
 });
 
 const User = mongoose.model('User', userSchema);

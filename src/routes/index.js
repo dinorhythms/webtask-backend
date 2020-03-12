@@ -1,3 +1,5 @@
+import userRoutes from './userRoutes';
+
 const routes = (router) => {
   router
     .route('/')
@@ -5,6 +7,9 @@ const routes = (router) => {
       status: 'success',
       message: 'welcome to webTask api root endpoint'
     }));
+
+  userRoutes(router);
 };
+
 
 module.exports = routes;
