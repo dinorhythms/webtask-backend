@@ -42,8 +42,8 @@ db.once('open', () => {
   console.log('Connected to mongoose');
 });
 
-app.listen(4000, () => {
-  console.log('listening on 4000');
+app.listen(process.env.PORT, () => {
+  console.log(`listening on ${process.env.PORT}`);
 });
 
 export default app;
