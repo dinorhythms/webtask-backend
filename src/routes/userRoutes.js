@@ -2,7 +2,7 @@ import userController from '../controllers/userController';
 import validator from '../middlewares/validator';
 
 const { validateCreate, validateUpdate } = validator;
-const { createUser, updateUser, getAll } = userController;
+const { createUser, updateUser, getAll, getOne } = userController;
 
 const userRoutes = (router) => {
   router.route('/users/create')
@@ -11,6 +11,8 @@ const userRoutes = (router) => {
     .patch(validateUpdate, updateUser);
   router.route('/users')
     .get(getAll);
+  router.route('/users/:id')
+    .get(getOne);
 };
 
 export default userRoutes;

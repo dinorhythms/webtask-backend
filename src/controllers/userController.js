@@ -96,6 +96,37 @@ const getAll = async (req, res) => {
   }
 };
 
+const getOne = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const getUser = await User.findById(id);
+
+    if (!getUser) {
+      return res.status(401).json({
+        status: 'error',
+        errors: 'user not found'
+      });
+    }
+
+    return res.status(201).json({
+      status: 'success',
+      message: 'get user successfully',
+      data: getUser
+    });
+  } catch (error) {
+    if (error.name === 'CastError') {
+      return res.status(500).json({
+        status: 'error',
+        error: 'id in not valid'
+      });
+    }
+    return res.status(500).json({
+      status: 'error',
+      error: error.message
+    });
+  }
+};
+
 export default {
-  createUser, updateUser, getAll
+  createUser, updateUser, getAll, getOne
 };
