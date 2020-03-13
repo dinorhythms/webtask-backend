@@ -44,7 +44,7 @@ const updateUser = async (req, res) => {
     if (!getUser) {
       return res.status(401).json({
         status: 'error',
-        errors: 'user not found'
+        errors: 'user does not exist'
       });
     }
 
@@ -104,7 +104,7 @@ const getOne = async (req, res) => {
     if (!getUser) {
       return res.status(401).json({
         status: 'error',
-        errors: 'user not found'
+        errors: 'user does not exist'
       });
     }
 
@@ -127,6 +127,37 @@ const getOne = async (req, res) => {
   }
 };
 
+const deleteOne = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const getUser = await User.findById(id);
+
+    if (!getUser) {
+      return res.status(401).json({
+        status: 'error',
+        errors: 'user does not exist'
+      });
+    }
+    await User.deleteOne({ _id: id });
+
+    return res.status(201).json({
+      status: 'success',
+      message: 'user deleted successfully',
+    });
+  } catch (error) {
+    if (error.name === 'CastError') {
+      return res.status(500).json({
+        status: 'error',
+        error: 'id in not valid'
+      });
+    }
+    return res.status(500).json({
+      status: 'error',
+      error: error.message
+    });
+  }
+};
+
 export default {
-  createUser, updateUser, getAll, getOne
+  createUser, updateUser, getAll, getOne, deleteOne
 };
